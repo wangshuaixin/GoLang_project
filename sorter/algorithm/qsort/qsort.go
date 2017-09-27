@@ -31,5 +31,5 @@ func quickSort(values []int, left, right int){
 }
 
 func QuickSort(values []int){
-	qukckSort(values, 0, len(values) - 1)
+	quickSort(values, 0, len(values) - 1)
 }
