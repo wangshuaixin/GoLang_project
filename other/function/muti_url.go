@@ -16,7 +16,7 @@ func MutiURL() {
 	url := "https://www.baidu.com"
 	go fetch(url, ch) // start a goroutine
 	fmt.Println(<-ch)
-	fmt.Printf("%.2fs elapsed\n,", time.Since(start).Seconds())
+	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
 }
 
 func fetch(url string, ch chan<- string) {
@@ -33,5 +33,5 @@ func fetch(url string, ch chan<- string) {
 		return
 	}
 	secs := time.Since(start).Seconds()
-	ch <- fmt.Sprintf("%.2fs  %7d  %s", secs, nbytes, url)
+	ch <- fmt.Sprintf("%.2fs bytes %7d  from: %s", secs, nbytes, url)
 }
