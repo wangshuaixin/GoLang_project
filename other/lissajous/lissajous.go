@@ -1,5 +1,6 @@
-package lissajous
+package lissajous_pkg
 
+// notices that you import the directory and the package is hidden behind.
 import (
 	"image"
 	"image/color"
