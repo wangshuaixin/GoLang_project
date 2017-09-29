@@ -20,6 +20,7 @@ This repo is used for collecting some practice and fancy trick for Golang.
 11. interface{} 对标object
 12. 基于指针对象的方法要写在函数名前[see](http://books.studygolang.com/gopl-zh/ch6/ch6-02.html)
 13. 写python或者其他静态类型语言就是总是觉得编译不好，在同一个package里面相互调用的时候一般要在一起编译 go build . 然后./main 分级的话则可以相互调用？ 
+14. 注意包的位置是代表整个dir
 
 
 
