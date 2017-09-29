@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-
-	"../lissajous"
+	// "./lissajous"
 )
 
 func main() {
 	fmt.Println("this is main")
-	lissajous.Lissajous()
+	// lissajous.Lissajous()
 	// FindDuplication()
+	GetURL()
 }

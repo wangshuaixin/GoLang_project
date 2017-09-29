@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// FindDuplication : this function is use to find duplication among test file
 func FindDuplication() {
 	counts := make(map[string]int)
 	for _, filename := range os.Args[1:] {
