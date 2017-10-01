@@ -1,4 +1,4 @@
-package lissajous_pkg
+package lissajous
 
 // notices that you import the directory and the package is hidden behind.
 import (
@@ -8,7 +8,7 @@ import (
 	"io"
 	"math"
 	"math/rand"
-	"os"
+	"net/http"
 	"time"
 )
 
@@ -19,12 +19,13 @@ const (
 	blackIndex = 1 // next color in palette
 )
 
-func Lissajous() {
+func Lissajous(w http.ResponseWriter) {
 	// The sequence of images is deterministic unless we seed
 	// the pseudo-random number generator using the current time.
 	// Thanks to Randall McPherson for pointing out the omission.
 	rand.Seed(time.Now().UTC().UnixNano())
-	lissajous(os.Stdout)
+	// lissajous(os.Stdout)
+	lissajous(w)
 }
 
 func lissajous(out io.Writer) {

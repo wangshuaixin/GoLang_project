@@ -24,6 +24,21 @@ This repo is used for collecting some practice and fancy trick for Golang.
 15. 关于规范化 https://github.com/golang/go/wiki/CodeReviewComments 
 16. 每个可见方法都要有注释
 17. VScode 的golint总是不太灵光，自动导入import包还是要少用
+18. 翻转slice [...]inst{0,1,2,3,4,5}
+19. cap 取到满足条件的2,4,8,16等值
+20. 判断slice里面元素对比，只有bytes.Equal 有单独的方法，其他没有
+21. slice元素是间接引用，slice的值在不同时刻可能包含不同的元素，因为底层数组会被修改。
+22. 看 一个map！
+```
+userAttrList := map[string]map[string]map[int]bool{
+    "first": {
+        "second": {
+            3: false,
+        },
+    },
+}
+```
+23. 
 
 
 
