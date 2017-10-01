@@ -8,9 +8,10 @@ import (
 )
 
 func main() {
-	fmt.Println("this is main")
+	fmt.Println("This is main")
 	// lissajous_pkg.Lissajous()
 	// findDuplication.FindDuplication()
 	// GetURL()
-	function.MutiURL()
+	// function.MutiURL()
+	function.Handler()
 }
