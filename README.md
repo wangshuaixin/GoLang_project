@@ -6,6 +6,17 @@ This repo is used for collecting some practice and fancy trick for Golang.
 用来记载GOlang练习，
 
 
+
+---
+
+#### sorter
+快排和冒泡练习
+#### other
+
+
+---
+
+
 ### LOG
 1. 大写小写字母开头的类型，变量和函数等表示可见性。
 2. 数组切片 {slice, ...type} 作为syntactic sugar
@@ -38,16 +49,10 @@ userAttrList := map[string]map[string]map[int]bool{
     },
 }
 ```
-23. 
+23. 单元测试感觉很不错
 
 
 
----
-#### sorter 是一个快排和冒泡的区别算法。／sorter is a procedure-oriented way for sorting algorithm
-
-#### GO_graphic is a graphic algorithm for Go
-
----
 
 
 ## [Fancy Golang](#FancyGolang)
