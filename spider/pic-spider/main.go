@@ -21,7 +21,7 @@ func main() {
 	urlpage := "http://jandan.net/ooxx/page-%d"
 
 	// 保存的地方
-	rootdir := "C:\\jiandan"
+	rootdir := "./jiandan"
 	util.MakeDir(rootdir)
 
 	// 初始化爬虫
@@ -40,7 +40,7 @@ func main() {
 
 	// 保存在本地看看
 	//util.SaveToFile(util.CurDir()+"/index.html", data)
-
+	//http://www.bfpgf.com/yld
 	// 解析查看页数
 	doc, _ := query.QueryBytes(data)
 	temp := doc.Find(".current-comment-page").Text()
