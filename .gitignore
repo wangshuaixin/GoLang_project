@@ -5,3 +5,4 @@ sorter/.DS_Store
 .vscode
 sorter/algorithm/bubblesort/debug
 main
+.DS_Store
