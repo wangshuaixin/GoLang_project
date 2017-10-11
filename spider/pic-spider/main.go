@@ -40,7 +40,6 @@ func main() {
 
 	// 保存在本地看看
 	//util.SaveToFile(util.CurDir()+"/index.html", data)
-	//http://www.bfpgf.com/yld
 	// 解析查看页数
 	doc, _ := query.QueryBytes(data)
 	temp := doc.Find(".current-comment-page").Text()
