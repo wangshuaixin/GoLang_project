@@ -26,6 +26,12 @@ This repo is used for collecting some practice and fancy trick for Golang.
 
 
 ### LOG
++  The article [How to write Go code](https://golang.org/doc/code.html) is essential to novice.
++  run Go code:
+    For `build` or `install` You need to have your files in package directory. and `build <directory name>`
+    
+    For `go run`, you need to supply all files as argument:
+    `go run *.go`
 1. 大写小写字母开头的类型，变量和函数等表示可见性。
 2. 数组切片 {slice, ...type} 作为syntactic sugar
 3. 先写变量名，再写类型名，[see reason for](#Fancy Golang)

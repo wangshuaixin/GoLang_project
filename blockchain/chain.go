@@ -7,18 +7,19 @@ package main
 // is insert ordered and the next is linked with the lastest block.
 // This struct is faster to caculated the hash code.
 
+//Blockchain keeps a equence of blocks
 type Blockchain struct {
 	blocks []*Block
 }
 
-// Add block into the blockchain
+// AddBlock into the blockchain
 func (bc *Blockchain) AddBlock(data string) {
 	preBlock := bc.blocks[len(bc.blocks)-1]
 	newBlock := NewBlock(data, preBlock.Hash)
 	bc.blocks = append(bc.blocks, newBlock)
 }
 
-//NewBlockchain :build new blockchain
+//NewBlockchain build new blockchain
 func NewBlockchain() *Blockchain {
 	return &Blockchain{[]*Block{NewGenesisBlock()}}
 }
