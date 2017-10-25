@@ -1,4 +1,4 @@
-package main
+package pholcus_lib_pte
 
 import (
 	// "log"

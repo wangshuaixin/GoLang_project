@@ -132,6 +132,12 @@ func main() {
     //比如
     time.Sleep(1e+09) = time.Sleep(time.Second)
 
+26. underline before import a package, like `_ "github.com/..."` 
+
+the short answer is that it is for importing a package solely for its side -effects.
+
+
+
 
 ## [Fancy Golang](#FancyGolang)
 1. https://blog.golang.org/gos-declaration-syntax
