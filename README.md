@@ -10,7 +10,7 @@ This repo is used for collecting some practice and fancy trick for Golang.
 ---
 
 ### List
-
++ [pipeline in golang](https://github.com/dyllanwli/GoLang_project/tree/master/pipeline)
 + [graphic](https://github.com/dyllanwli/GoLang_project/tree/master/graphic)
 + [other](https://github.com/dyllanwli/GoLang_project/tree/master/other) 快速和冒泡排序 CHANNEL goroutine defer之类的用法/rapid sequencing and Bubble Sort and channel goroutin defer
 + [crypto](https://github.com/dyllanwli/GoLang_project/tree/master/crypto) 简单加密算法Golang/simple cryptography in GO
@@ -136,6 +136,12 @@ func main() {
 
 the short answer is that it is for importing a package solely for its side -effects.
 
+27. 在Go中对于管道没有正式的定义，它只是很多并发程序中的一种。一般说来，一个管道就是一系列通过channel连接的stages，每个stage都是运行着相同函数的goroutines的集合，在每个stage中，goroutine干着下面三件事儿：
+
+    通过channel从上游接收数据；
+    对这些数据执行一些函数，通常再产生新的数据；
+    再把数据发送到下游的channel中。
+    每个stage都有一些上下游channel，除了最开始和最后的stage，最开始的stage通常叫做source或是producer，最后的stage叫做sink或是consumer。
 
 
 
