@@ -144,6 +144,8 @@ the short answer is that it is for importing a package solely for its side -effe
     再把数据发送到下游的channel中。
     每个stage都有一些上下游channel，除了最开始和最后的stage，最开始的stage通常叫做source或是producer，最后的stage叫做sink或是consumer。
 
+28. can not range interface 的解决：https://stackoverflow.com/questions/42054248/cannot-range-over-list-type-interface-in-function-using-go
+
 
 
 ## [Fancy Golang](#FancyGolang)
