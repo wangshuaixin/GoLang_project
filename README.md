@@ -10,7 +10,8 @@ This repo is used for collecting some practice and fancy trick for Golang.
 ---
 
 ### List
-+ [elementary-algorithms is a golang implementation algorithm](https://github.com/dyllanwli/GoLang_project/tree/master/elementary-algorithms)
++ [project notes](https://github.com/dyllanwli/GoLang_project/blob/master/Project_Notes_1.md)用来记录golang的feature
++ [elementary-algorithms](https://github.com/dyllanwli/GoLang_project/tree/master/elementary-algorithms) is a golang implementation algorithm
 + [pipeline in golang](https://github.com/dyllanwli/GoLang_project/tree/master/pipeline)
 + [graphic](https://github.com/dyllanwli/GoLang_project/tree/master/graphic)
 + [other](https://github.com/dyllanwli/GoLang_project/tree/master/other) 快速和冒泡排序 CHANNEL goroutine defer之类的用法/rapid sequencing and Bubble Sort and channel goroutin defer
