@@ -1,7 +1,7 @@
 package main
 
 import "fmt"
-
+import "reflect"
 import "unsafe"
 import "math/rand"
 
@@ -23,19 +23,20 @@ func shuffle(src []int) []int {
 }
 
 func minfree(a interface{}, n int) interface{} {
-	f := make([]bool, len(A))
-	lista, _ := a.([]interface{})
-	for i := range lista {
-		if i < n {
-			f[i] = true
-		}
-	}
-	for i := 0; i < n; i++ {
-		if f[i] == false {
-			return i
-		}
-	}
-	return a
+	// f := make([]bool, len(A))
+	lista, _ := a.([]int)
+	fmt.Println(reflect.TypeOf(lista))
+	// for i := range lista {
+	// 	if i < n {
+	// 		f[i] = true
+	// 	}
+	// }
+	// for i := 0; i < n; i++ {
+	// 	if f[i] == false {
+	// 		return i
+	// 	}
+	// }
+	return lista
 }
 
 func main() {
@@ -43,11 +44,14 @@ func main() {
 	fmt.Println(unsafe.Sizeof(1))
 	//
 	var src []int
-	for i := 0; i < 10000000; i++ {
+	for i := 0; i < 10; i++ {
 		src = append(src, i)
-		fmt.Println(rand.Intn(i + 1))
 	}
 	// shuffle(src)
 
-	// fmt.Println(shuffle(src))
+	lista := minfree(src, 10)
+	fmt.Println(reflect.TypeOf(lista))
+	fmt.Println(reflect.TypeOf(src))
+	// lissrc, _ := src.([]interface{})
+	// fmt.Println(reflect.TypeOf())
 }
