@@ -26,3 +26,9 @@
     x's type and T are both complex types.
     x is an integer or a slice of bytes or runes and T is a string type.
     x is a string and T is a slice of bytes or runes.
+
++ 静态类型是在声明的时候赋予的.interface变量区别于动态类型（一种在运行的时候多种类型的聚合体）。比如（The dynamic type may vary during execution but values stored in interface variables are always assignable to the static type of the variable.）
+
++ type assertion: `variable.(Type)`
+
++ 如果存在类似于main函数调用父目录的接口，则可以使用导入 `improt ".." `这样的方法
