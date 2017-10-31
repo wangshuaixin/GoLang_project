@@ -28,7 +28,8 @@ This repo is used for collecting some practice and fancy trick for Golang.
 ---
 
 
-### LOG
+### LOG 
++ 其他的note在这里[Project_Notes_1.md](https://github.com/dyllanwli/GoLang_project/blob/master/Project_Notes_1.md)
 +  The article [How to write Go code](https://golang.org/doc/code.html) is essential to novice.
 +  run Go code:
     For `build` or `install` You need to have your files in package directory. and `build <directory name>`

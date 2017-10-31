@@ -1,4 +1,4 @@
-# Project Notes
+### Project Notes
 由于之间的readme太长，所以用一个markdown来记录新的笔记。
 
 + 关于类型转换，和接口查询。
@@ -32,3 +32,63 @@
 + type assertion: `variable.(Type)`
 
 + 如果存在类似于main函数调用父目录的接口，则可以使用导入 `improt ".." `这样的方法
++ 通道(channel)和映射(map)与切片(slice)一样，也是引用类型
+
+
+#### section2
+---
+1. 非常推荐使用 WaitGroup 来 跟踪 goroutine 的工作是否完成。WaitGroup 是一个计数信号量，我们可以利用它来统计所有的 goroutine 是不是都完成了工作
+    + 每个 goroutine 完成其工作后，就会递减 WaitGroup 变量的 计数值，当这个值递减到 0 时，我们就知道所有的工作都做完了
+
+2. 有了闭包，函数可以直接访问到那些没有作为参数传入的变量。匿名函数并没有拿到这些变量的副本，而是直接访问外层函数作用域中声明的这些变量本身。
+    + 对于常规的函数，随着外部变量的循环或者改变，除非使用函数参数的形式传值给函数，否则大部分的goroutine最终会使用同一个值，很可能就是循环的slice最后一个值。
+
+3. 方法声明中的值和值的指针的区别：
+```
+    // 方法声明为使用 defaultMatcher 类型的值作为接收者
+    func (m defaultMatcher) Search(feed *Feed, searchTerm string)
+    // 声明一个指向 defaultMatcher 类型值的指针 dm := new(defaultMatch)
+    // 编译器会解开 dm 指针的引用，使用对应的值调用方法 dm.Search(feed, "test")
+    // 方法声明为使用指向 defaultMatcher 类型值的指针作为接收者
+    func (m *defaultMatcher) Search(feed *Feed, searchTerm string)
+    // 声明一个 defaultMatcher 类型的值 var dm defaultMatch
+    // 编译器会自动生成指针引用 dm 值，使用指针调用方法 dm.Search(feed, "test")
+```
+
++ 因为大部分方法在被调用后都需要维护接收者的值的状态，所以，一个最佳实践是，将方法 的接收者声明为指针。对于 defaultMatcher 类型来说，使用值作为接收者是因为创建一个 defaultMatcher 类型的值不需要分配内存。由于 defaultMatcher 不需要维护状态，所以 不需要指针形式的接收者。
++ 与直接通过值或者指针调用方法不同，如果通过接口类型的值调用方法，规则有很大不同；使用指针作为接收者声明的方法，只能在接口类型的值是一个指针的时 候被调用。使用值作为接收者声明的方法，在接口类型的值为值或者指针时，都可以被调用。
+
+4. 接口方法调用所受限制的例子：
+
+```
+    // 方法声明为使用指向 defaultMatcher 类型值的指针作为接收者
+    func (m *defaultMatcher) Search(feed *Feed, searchTerm string)
+    // 通过 interface 类型的值来调用方法
+    var dm defaultMatcher
+    var matcher Matcher = dm // 将值赋值给接口类型 matcher.Search(feed, "test") // 使用值来调用接口方法
+    > go build
+    cannot use dm (type defaultMatcher) as type Matcher in assignment
+    // 方法声明为使用 defaultMatcher 类型的值作为接收者
+    func (m defaultMatcher) Search(feed *Feed, searchTerm string)
+    // 通过 interface 类型的值来调用方法
+    var dm defaultMatcher
+    var matcher Matcher = &dm // 将指针赋值给接口类型 matcher.Search(feed, "test") // 使用指针来调用接口方法
+        > go build
+        Build Successful
+```
+
++ 除了 Search 方法，defaultMatcher 类型不需要为实现接口做更多的事情了。从这段代 码之后，不论是 defaultMatcher 类型的值还是指针，都满足 Matcher 接口，都可以作为 Matcher 类型的值使用。这是代码可以工作的关键。defaultMatcher 类型的值和指针现在还 可以作为 Matcher 的值，赋值或者传递给接受 Matcher 类型值的函数。
+
++ 这里提到了使用指针等等的问题：一个函数何时该用指针类型做receiver对初学者而言一直是个头疼的问题。如果不知道该如何取舍，选择指针类型的receiver。但有些时候value receiver更加合适，比如对象是一些轻量级的不变的structs，使用value receiver会更加高效。下面是列举了一些常用的判断指导。
+
+        1、如果receiver是map、func或者chan，不要使用指针
+        2、如果receiver是slice并且该函数并不会修改此slice，不要使用指针
+        3、如果该函数会修改receiver，此时一定要用指针
+        4、如果receiver是struct并且包含互斥类型sync.Mutex，或者是类似的同步变量，receiver必须是指针，这样可以避免对象拷贝
+        5、如果receiver是较大的struct或者array，使用指针则更加高效。多大才算大？假设struct内所有成员都要作为函数变量传进去，如果觉得这时数据太多，就是struct太大
+        6、如果receiver是struct，array或者slice，并且其中某个element指向了某个可变量，则这个时候receiver选指针会使代码的意图更加明显
+        7、如果receiver使较小的struct或者array，并且其变量都是些不变量、常量，例如time.Time，value receiver更加适合，因为value receiver可以减少需要回收的垃圾量。
+        8、最后，如果不确定用哪个，使用指针类的receiver
+
++ 在golang中没有明确的shuffle方法，如果要生成随机数组的话，需要使用rand.Perm 如果要每次都生成随机，则使用rand.NewSource()
++ python 的sorted是快排？golang里面的？
