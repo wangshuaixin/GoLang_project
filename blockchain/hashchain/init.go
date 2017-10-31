@@ -1,8 +1,9 @@
-package main
+package hashchain
 
 import (
 	"bytes"
 	"crypto/sha256"
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -47,4 +48,8 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 // NewGenesisBlock creates and returns genesis Block
 func NewGenesisBlock() *Block {
 	return NewBlock("Genesis Block", []byte{})
+}
+
+func init() {
+	fmt.Println("initialization...")
 }

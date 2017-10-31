@@ -1,4 +1,4 @@
-package main
+package hashchain
 
 // now we have a block and know how to create a block, so we must create a chain to build
 // a real block chain

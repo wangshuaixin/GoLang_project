@@ -8,4 +8,4 @@ Blockchain from scratch
 
 suggest reviewing order, init -> chain -> blockchain
 
-The example is based on another repo [blockchain_go](http://link.zhihu.com/?target=https%3A//github.com/Jeiwan/blockchain_go)
+The example is based on another repo [blockchain_go](https://github.com/Jeiwan/blockchain_go)
