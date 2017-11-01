@@ -1,4 +1,4 @@
-package hashchain
+package main
 
 import (
 	"bytes"
