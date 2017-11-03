@@ -8,3 +8,5 @@ main
 .DS_Store
 goinaction
 blockchain/storage/blockchain.db
+blockchain/transactions/block
+blockchain/transactions/blockchain.db
