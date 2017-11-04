@@ -45,3 +45,14 @@ T类型的值只包含值接受者声明的方法。而指向T类似的指针的
 + 接口是声明了一组行为并支持多态的类型。
 + 嵌入类型提供了扩展类型的能力，而无需使用继承。
 + 标识符要么是从包里公开的，要么是在包里未公开的。
+
+
+### 并发和并行
+
+并发(concurrency)不是并行(parallelism)。并行是让不同的代码片段同时在不同的物理处 理器上执行。并行的关键是同时做很多事情，而并发是指同时管理很多事情，这些事情可能只做了一半就被暂停去做别的事情了。在很多情况下，并发的效果比并行好，因为操作系统和硬件的总资源一般很少，但能支持系统同时做很多事情。这种“使用较少的资源做更多的事情”的哲学，也是指导 Go 语言设计的哲学。
+
+WaitGroup 是一个计数信号量，可以用来记录并维护运行的 goroutine。如果 WaitGroup 的值大于 0，Wait 方法就会阻塞。将这个 WaitGroup 的值设置为 2，表示有两个正在运行的 goroutine。为了减小 WaitGroup 的值并最终释放 main 函数，使用 defer 声明在函数退出时 调用 Done 方法。
+
+#### basis 58 算法
+Bitcoin uses the Base58 algorithm to convert public keys into human readable format. The algorithm is very similar to famous Base64, but it uses shorter alphabet: some letters were removed from the alphabet to avoid some attacks that use letters similarity. Thus, there are no these symbols: 0 (zero), O (capital o), I (capital i), l (lowercase L), because they look similar. Also, there are no + and / symbols.
+
