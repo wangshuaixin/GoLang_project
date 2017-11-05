@@ -11,3 +11,4 @@ blockchain/storage/blockchain.db
 blockchain/transactions/block
 blockchain/transactions/blockchain.db
 main.go
+debug
