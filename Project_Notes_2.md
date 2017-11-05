@@ -56,3 +56,87 @@ WaitGroup 是一个计数信号量，可以用来记录并维护运行的 gorout
 #### basis 58 算法
 Bitcoin uses the Base58 algorithm to convert public keys into human readable format. The algorithm is very similar to famous Base64, but it uses shorter alphabet: some letters were removed from the alphabet to avoid some attacks that use letters similarity. Thus, there are no these symbols: 0 (zero), O (capital o), I (capital i), l (lowercase L), because they look similar. Also, there are no + and / symbols.
 
+### 竞争机制
+
+如果两个或者多个 goroutine 在没有互相同步的情况下，访问某个共享的资源，并试图同时读和写这个资源，就处于相互竞争的状态，这种情况被称作竞争状态(race candition)。竞争状态 的存在是让并发程序变得复杂的地方，十分容易引起潜在问题。对一个共享资源的读和写操作必 须是原子化的，换句话说，同一时刻只能有一个 goroutine 对共享资源进行读和写操作。
+
+一种修正代码、消除竞争状态的办法是，使用 Go 语言提供的锁机制，来锁住共享资源，从而保证 goroutine 的同步状态。
+
+
+### 锁住共享资源
+
+Go 语言提供了传统的同步 goroutine 的机制，就是对共享资源加锁。如果需要顺序访问一个 整型变量或者一段代码，atomic 和 sync 包里的函数提供了很好的解决方案。下面我们了解一 下 atomic 包里的几个函数以及 sync 包里的 mutex 类型。
+
+1. 下面是具有atomic进行强制添加：
+
+另外两个有用的原子函数是 LoadInt64 和 StoreInt64
+
+    // incCounter increments the package level counter variable.
+    func incCounter(id int) {
+        // Schedule the call to Done to tell main we are done.
+        defer wg.Done()
+
+        for count := 0; count < 2; count++ {
+            // Safely Add One To Counter.
+            atomic.AddInt64(&counter, 1)
+
+            // Yield the thread and be placed back in queue.
+            runtime.Gosched()
+        }
+    }
+
+如果没有保护则：
+
+    func incCounter(id int) {
+        // Schedule the call to Done to tell main we are done.
+        defer wg.Done()
+
+        for count := 0; count < 2; count++ {
+            // Capture the value of Counter.
+            value := counter
+            // Yield the thread and be placed back in queue.
+            runtime.Gosched()
+            // Increment our local value of Counter.
+            value++
+            // Store the value back into Counter.
+            counter = value
+        }
+    }
+
+这样的。
+
+
+2. 还可以通过互斥锁来进行共享资源访问。
+
+同步访问共享资源的方式是使用互斥锁(mutex)。互斥锁这个名字来自互斥(mutual exclusion)的概念。互斥锁用于在代码上创建一个临界区，保证同一时间只有一个 goroutine 可以 执行这个临界区代码。
+
+	// Schedule the call to Done to tell main we are done.
+	defer wg.Done()
+
+	for count := 0; count < 2; count++ {
+		// Only allow one goroutine through this
+		// critical section at a time.
+		mutex.Lock()
+		// Capture the value of counter.
+		value := counter
+
+		// Yield the thread and be placed back in queue.
+		runtime.Gosched()
+
+		// Increment our local value of counter.
+		value++
+
+		// Store the value back into counter.
+		counter = value
+
+		mutex.Unlock()
+		// Release the lock and allow any
+		// waiting goroutine through.
+	}
+
+### channel 
+原子函数和互斥锁都能工作，但是依靠它们都不会让编写并发程序变得更简单，更不容易出 错，或者更有趣。在 Go 语言里，你不仅可以使用原子函数和互斥锁来保证对共享资源的安全访 问以及消除竞争状态，还可以使用通道，通过发送和接收需要共享的资源，在 goroutine 之间做同步。
+
+当一个资源需要在 goroutine 之间共享时，通道在 goroutine 之间架起了一个管道，并提供了 确保同步交换数据的机制。声明通道时，需要指定将要被共享的数据的类型。可以通过通道共享 内置类型、命名类型、结构类型和引用类型的值或者指针。
+
++ 在只有一个CPU工作的时候，永远是最后一个先执行。剩下的按顺序执行

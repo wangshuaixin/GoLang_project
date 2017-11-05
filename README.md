@@ -3,24 +3,24 @@
 This repo is used for collecting some practice and fancy trick for Golang.
 
 ---
-用来记载Golang练习，
+用来记载Golang练习，包含各种在stackoverflow和其他博客上的code tricky。复用一些算法和技巧，还有blockchain。
 
 
 
 ---
 
 ### List
-+ [project notes](https://github.com/dyllanwli/GoLang_project/blob/master/Project_Notes_1.md)用来记录golang的feature
++ [project notes](https://github.com/dyllanwli/GoLang_project/blob/master/Project_Notes_1.md)用来记录golang的feature, 持续记载1，2，3....
 + [elementary-algorithms](https://github.com/dyllanwli/GoLang_project/tree/master/elementary-algorithms) is a golang implementation algorithm
 + [pipeline in golang](https://github.com/dyllanwli/GoLang_project/tree/master/pipeline)
 + [graphic](https://github.com/dyllanwli/GoLang_project/tree/master/graphic)
-+ [other](https://github.com/dyllanwli/GoLang_project/tree/master/other) 快速和冒泡排序 CHANNEL goroutine defer之类的用法/rapid sequencing and Bubble Sort and channel goroutin defer
++ [other](https://github.com/dyllanwli/GoLang_project/tree/master/other) 快速和冒泡排序 CHANNEL goroutine defer之类的用法/rapid sequencing and Bubble Sort and channel goroutin defer and other stuff, including some utils that reused in my code.
 + [crypto](https://github.com/dyllanwli/GoLang_project/tree/master/crypto) 简单加密算法Golang/simple cryptography in GO
 + [go-python](https://github.com/dyllanwli/GoLang_project/tree/master/go-python) go语言和python相互调用/ contact between Golang and Python
 + [spider](https://github.com/dyllanwli/GoLang_project/tree/master/spider) 爬虫/ a web crawler in Golang
 + [web](https://github.com/dyllanwli/GoLang_project/tree/master/web) 运用http协议搭建web / build simple website based on golang net package
 + [blockchain](https://github.com/dyllanwli/GoLang_project/tree/master/blockchain) 从零开始搭建blockchain / build a blockchain from scratch
-
++ ...
 #### Dash means extend feature based on initial program/ ‘-’ 意味着其他的简单扩展
 
 
