@@ -11,6 +11,38 @@
 + 如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。
 
 
+### interface and struct
+如果有这样的情况：
+
+    type People interface {
+        Speak(string) string
+    }
+
+    type Stduent struct{}
+    func (stu *Stduent) Speak(think string) (talk string) {}
+    var peo People = Stduent{}
+
+一个接口和一个struct这样调用，会编译不过去：
+
+    can not use Student literal as People assignment, 后面又说了，Student does not implement People(Speak has pointer receiver)
+
+即使没有赋值，`var peo People`，也会出现错误，出现一个：
+
+    panic: runtime error: invalid memory address or nil pointer dereference
+
+但是如果不使用指针接收这个speak，则没有错误。
+
+解决方法在：https://stackoverflow.com/questions/40823315/go-x-does-not-implement-y-method-has-a-pointer-receiver
+这里
+
+还可以:
+
+	s := new(Stduent)
+	think := "bitch"
+    var peo People = s
+	fmt.Println(peo.Speak(think))
+	
+
 ### 双引号和单引号
 结论写在最前：在Go语言中不倾向于使用单引号来表示字符串，请根据需要使用双引号或反引号。
 
