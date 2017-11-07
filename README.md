@@ -5,7 +5,7 @@ This repo is used for collecting some practice and fancy trick for Golang.
 ---
 用来记载Golang，包含各种在stackoverflow和其他博客上的code tricky。复用一些算法和技巧，还有blockchain。
 
-可以通过这颗repo来学习Golang
+可以通过这个repo来学习Golang
 
 ---
 
