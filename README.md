@@ -29,7 +29,7 @@ This repo is used for collecting some practice and fancy trick for Golang.
 
 
 ### LOG 
-+ 其他的note在这里[Project_Notes_1.md](https://github.com/dyllanwli/GoLang_project/blob/master/Project_Notes_1.md)
++ 一个README记载不下，其他的在这里[Project_Notes_1.md](https://github.com/dyllanwli/GoLang_project/blob/master/Project_Notes_1.md)
 +  The article [How to write Go code](https://golang.org/doc/code.html) is essential to novice.
 +  run Go code:
     For `build` or `install` You need to have your files in package directory. and `build <directory name>`
@@ -148,7 +148,7 @@ the short answer is that it is for importing a package solely for its side -effe
 
 28. can not range interface 的解决：https://stackoverflow.com/questions/42054248/cannot-range-over-list-type-interface-in-function-using-go
 
-29. 感觉需要单独简历一个markdown来记录这些tricky了。新建一个吧。
+29. 感觉需要单独建立一个markdown来记录这些tricky了。新建一个吧。
 
 
 ## [Fancy Golang](#FancyGolang)
