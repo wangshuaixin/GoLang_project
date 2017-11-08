@@ -12,3 +12,4 @@ blockchain/transactions/block
 blockchain/transactions/blockchain.db
 main.go
 debug
+blockchain/blockchain_from_scratch/network/base58
