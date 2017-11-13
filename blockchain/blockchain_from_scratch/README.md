@@ -76,7 +76,8 @@ Blockchain from scratch
 并且，正如前面所提到的，我们将全部的数据库存储在一个文件当中，并不将单个区块存储在单个文件当中。因此，我们也没有什么信息是与文件数（file number）有个的，所能够利用的 key -> value 数据对如下：
 
     'b' + 32-byte block-hash -> Block structure (serialized)区块结构体（序列化后的）
-    'l' -> the hash of the last block in a chain（区块链中最近一个区块的哈希值）以上是目前开始实现数据存储机制所需要了解的全部内容。
+    'l' -> the hash of the last block in a chain（区块链中最近一个区块的哈希值）
+    以上是目前开始实现数据存储机制所需要了解的全部内容。
 
 #### 交易记录
 
