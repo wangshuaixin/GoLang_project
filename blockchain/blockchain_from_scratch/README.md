@@ -115,8 +115,98 @@ Blockchain from scratch
 #### Merkle Tree
 比特币用一个更加复杂的技术：它采用Merkle tree来组织一个区块中的所有交易记录，然后用树的根哈希值来确保PoW系统的运行。这种方法能够让我们快速的检验一个区块是否包含确定的交易记录，只要有根哈希值而不需要下载所有的交易记录。
 
+关于merkle tree可以看这一篇博客
 
+https://www.cnblogs.com/fengzhiwu/p/5524324.html
  
+
+#### UTXO
+这里指没有花费交易记录的输出，当然，当我们检查余额时，我们并不需要全部，只需要那些我们有私钥可以解锁的部分。通过TX结构体中的ScriptSig和ScriptPubKey等等进行比较。
+
+关于寻找没有花费的交易记录：
+
+
+    func (bc *Blockchain) FindUnspentTransactions(address string) []Transaction {
+        var unspentTXs []Transaction
+        //一个未花费交易记录
+        spentTXOs := make(map[string][]int)
+        bci := bc.Iterator()
+        //查看blockchain
+        for {
+            block := bci.Next()
+            //查找下一个
+            for _, tx := range block.Transactions {
+            txID := hex.EncodeToString(tx.ID)
+            //获取ID
+            Outputs:
+            for outIdx, out := range tx.Vout {
+                // 由于交易记录存在在区块当中，我们必须检查区块链中的每一个区块
+                if spentTXOs[txID] != nil {
+                for _, spentOut := range spentTXOs[txID] {
+                    //当一个输出由我们用来选择未花费交易记录的地址上的锁，那么这个输出就是我们想要的。
+                    //但是在我们取得它之前我们需要确认它是否已经与一个输入相关联
+                    if spentOut == outIdx {
+                    continue Outputs
+                    }
+                }
+                }
+
+                if out.CanBeUnlockedWith(address) {
+                unspentTXs = append(unspentTXs, *tx)
+                }
+            }
+            //我们将忽略哪些已经与输入相关的的输出
+            //它们的价值已经转移到其它的输出，所以不能再统计它们
+            //检查输出以后，我们手机所有那些可以结果被提供的地址锁上的输出的输入，这对币基交易记录不适用，因为它们不解锁任何输出
+            if tx.IsCoinbase() == false {
+                for _, in := range tx.Vin {
+                if in.CanUnlockOutputWith(address) {
+                    inTxID := hex.EncodeToString(in.Txid)
+                    spentTXOs[inTxID] = append(spentTXOs[inTxID], in.Vout)
+                }
+                }
+            }
+            }
+
+            if len(block.PrevBlockHash) == 0 {
+            break
+            }
+        }
+
+    return unspentTXs
+    }
+
+下面的函数返回一系列包含未花费输出的交易记录。为了计算余额，我们需要额外的一个以交易记录为参数并只返回输出的函数
+
+    func (bc *Blockchain) FindUTXO(address string) []TXOutput {
+        var UTXOs []TXOutput
+        unspentTransactions := bc.FindUnspentTransactions(address)
+
+        for _, tx := range unspentTransactions {
+                for _, out := range tx.Vout {
+                        if out.CanBeUnlockedWith(address) {
+                                UTXOs = append(UTXOs, out)
+                        }
+                }
+        }
+
+        return UTXOs
+    }
+
+#### send coin
+就是创建一个UNTXOTransaction，在创建新的输出之前，我们首先找出所有的未消费输出并且确保它们存有足够的币值。这是FindSpendableOutputs 方法的功能
+
+然后需要两个输出
+
+一个用接受者的地址进行锁定。这是实际需要转移到其它地址的币值。
+
+一个用发送者的地址进行锁定。这是找零。当且仅当剩余未花费输出持有的总币值比新的交易记录所要求的多。记住：输出是不可分割的。
+
+    func (bc *Blockchain) FindSpendableOutputs(address string, amount int) (int, map[string][]int) {}
+
+这个方法遍历所有的未花费交易记录并累计它们的币值。当累计的币值大于或者等于我们所有转移的量时，它停止工作然后返回累计币值（accumulated value）以及按交易记录ID进行分组的输出索引。我们不打算取比我们打算要花费的多。
+
+
 - - -
 Refference: 
 
